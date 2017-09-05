@@ -4,7 +4,7 @@ module.exports = {
     // エントリの定義
     entry : {
         // TODO: SPA(画面)が増えるたびに逐次追加する
-        root  : path.resolve(__dirname, 'app/scripts/entries/root.js'),
+        root  : path.resolve(__dirname, 'app/scripts/Root.js')
     },
 
     // 出力先の定義: /public/scripts/<エントリ名>.bundle.js に出力される

@@ -24,3 +24,4 @@
 public/scripts/*
 /node_modules
 /yarn-error.log
+vendor

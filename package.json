@@ -2,13 +2,26 @@
   "name": "portfolio-desu",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.2",
+    "babel-polyfill": "^6.26.0",
+    "bluebird": "^3.5.0",
     "bootstrap": "^3.3.7",
+    "humps": "^2.0.1",
     "immutable": "^3.8.1",
     "jquery": "^3.2.1",
+    "material-ui": "^0.19.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-dropzone": "^4.1.0",
+    "react-helmet": "^5.2.0",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "react-router": "^4.2.0",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "superagent": "^3.6.0",
+    "tcomb-form": "^0.9.17"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

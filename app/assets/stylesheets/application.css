@@ -14,3 +14,6 @@
  *= require_self
  */
 @import 'bootstrap/dist/css/bootstrap';
+.App {
+  text-align: center;
+}
