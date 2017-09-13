@@ -4,6 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
 import t from 'tcomb-form'
+import axios from 'axios'
+
 const Form = t.form.Form;
 var Email = t.refinement(t.String, function (s) {
   return /@/.test(s);
@@ -39,11 +41,34 @@ class Login extends Component {
   }
   save() {
     // call getValue() to get the values of the form
-    var value = this.refs.form.getValue();
+    var value = this.refs.form.getValue()
     // if validation fails, value will be null
     if (value) {
       // value here is an instance of Person
-      console.log(value);
+      console.log(value)
+      //api/auth
+      //localhost:3000/api/auth
+      const data = {
+        "name": "せんべい太郎",
+        "email": "admin@example.com",
+        "password": "11111111"
+      }
+      axios({
+        //url: '/auth/sign_in',
+        url: '/api/auth',
+        method: 'POST',
+        //data: { email, password }
+        data: data
+      }).then(response => {
+        const uid = response.headers['uid']
+        const client = response.headers['client']
+        const accessToken = response.headers['access-token']
+        const expiry = response.headers['expiry']
+        /*
+        dispatch(successAuthentication(uid, client, accessToken, expiry))*/
+      }).catch(error => {
+        //dispatch(failAuthentication())
+      })
     }
   }
   render() {
