@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from "react"
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
 import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -8,17 +7,23 @@ import t from 'tcomb-form'
 import axios from 'axios'
 
 const Form = t.form.Form;
-const Email = t.refinement(t.String, function (s) {
+
+var Email = t.refinement(t.String, function (s) {
   return /@/.test(s);
 })
-const Password = t.refinement(t.String, function (s) {
+
+var Password = t.refinement(t.String, function (s) {
   return s.length >= 2;
 })
+// define your domain model with tcomb
+// https://github.com/gcanti/tcomb
 const LoginForm = t.struct({
+  name: t.String,
   mailaddress: Email,
   password: Password,
   rememberMe: t.Boolean
 })
+
 const options = {
   error: 'Passwords must match',
   fields: {
@@ -32,7 +37,7 @@ const options = {
   }
 };
 
-class Login extends Component {
+class Register extends Component {
   constructor(props){
     super(props)
   }
@@ -53,6 +58,9 @@ class Login extends Component {
         const client = response.headers['client']
         const accessToken = response.headers['access-token']
         const expiry = response.headers['expiry']
+        console.log(response.headers['client'])
+        console.log(response.headers['access-token'])
+        console.log(response.headers['expiry'])
       }).catch(error => {
       })
     }
@@ -61,7 +69,7 @@ class Login extends Component {
     return (
       <div >
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
-          <AppBar title="Login" />
+          <AppBar title="Register" />
         </MuiThemeProvider>
         <div style={styles.container} >
           <div style={styles.form}>
@@ -80,7 +88,7 @@ class Login extends Component {
   }
 }
 
-var styles = {
+const styles = {
   container: {
     marginTop:30,
     width: '360px',
@@ -111,4 +119,4 @@ var styles = {
     cursor: 'pointer'
   }
 }
-export default Login;
+export default Register

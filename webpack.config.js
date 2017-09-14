@@ -30,7 +30,7 @@ module.exports = {
 
     // webpack-dev-serverの設定
     devServer : {
-        port            : 8080,
+        port            : 8081,
         inline          : true,
         clientLogLevel  : 'info',
         contentBase     : path.join(__dirname, 'scripts/'),
@@ -41,4 +41,9 @@ module.exports = {
 
     // Source Mapの設定
     devtool : "cheap-eval-source-map",
+
+    watchOptions : {
+      aggregateTimeout: 300,
+      poll: 150
+    }
 };
