@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { Provider } from 'react-redux';
+import createFinalStore from './modules/store';
+
+const store = createFinalStore();
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
 )
