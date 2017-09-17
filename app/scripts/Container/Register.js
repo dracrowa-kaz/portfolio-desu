@@ -5,6 +5,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
 import t from 'tcomb-form'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Form = t.form.Form;
 
@@ -71,6 +73,13 @@ class Register extends Component {
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar title="Register" />
         </MuiThemeProvider>
+        <nav>
+            <ul>
+                <li><Link to="/">HOME</Link></li>
+                <li><Link to="login">login</Link></li>
+                <li><Link to="register">register</Link></li>
+            </ul>
+        </nav>
         <div style={styles.container} >
           <div style={styles.form}>
             <Form
@@ -80,13 +89,23 @@ class Register extends Component {
             />
             <button
             style={styles.button}
-            onClick={this.save.bind(this)}>Login</button>
+            onClick={this.save.bind(this)}>Register</button>
+          <Link to="/login" className="">I have account already</Link>
           </div>
         </div>
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  const {todo} = state
+  return {
+    todo,
+  }
+}
+
+export default connect(mapStateToProps)(Register)
 
 const styles = {
   container: {
@@ -119,4 +138,3 @@ const styles = {
     cursor: 'pointer'
   }
 }
-export default Register

@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from "react"
-import { connect } from 'react-redux'
 import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
 import t from 'tcomb-form'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Form = t.form.Form;
 const Email = t.refinement(t.String, function (s) {
@@ -63,6 +64,13 @@ class Login extends Component {
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar title="Login" />
         </MuiThemeProvider>
+        <nav>
+            <ul>
+                <li><Link to="/">HOME</Link></li>
+                <li><Link to="/login">login</Link></li>
+                <li><Link to="/register">register</Link></li>
+            </ul>
+        </nav>
         <div style={styles.container} >
           <div style={styles.form}>
             <Form
@@ -73,12 +81,22 @@ class Login extends Component {
             <button
             style={styles.button}
             onClick={this.save.bind(this)}>Login</button>
+          <Link to="/register" className="">I want to register</Link>
           </div>
         </div>
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  const {todo} = state
+  return {
+    todo,
+  }
+}
+
+export default connect(mapStateToProps)(Login)
 
 var styles = {
   container: {
@@ -111,4 +129,3 @@ var styles = {
     cursor: 'pointer'
   }
 }
-export default Login;
