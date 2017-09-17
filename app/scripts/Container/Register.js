@@ -60,9 +60,6 @@ class Register extends Component {
         const client = response.headers['client']
         const accessToken = response.headers['access-token']
         const expiry = response.headers['expiry']
-        console.log(response.headers['client'])
-        console.log(response.headers['access-token'])
-        console.log(response.headers['expiry'])
       }).catch(error => {
       })
     }
@@ -73,13 +70,6 @@ class Register extends Component {
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar title="Register" />
         </MuiThemeProvider>
-        <nav>
-            <ul>
-                <li><Link to="/">HOME</Link></li>
-                <li><Link to="login">login</Link></li>
-                <li><Link to="register">register</Link></li>
-            </ul>
-        </nav>
         <div style={styles.container} >
           <div style={styles.form}>
             <Form

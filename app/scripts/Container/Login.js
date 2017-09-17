@@ -59,18 +59,12 @@ class Login extends Component {
     }
   }
   render() {
+    console.log(this.props)
     return (
       <div >
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar title="Login" />
         </MuiThemeProvider>
-        <nav>
-            <ul>
-                <li><Link to="/">HOME</Link></li>
-                <li><Link to="/login">login</Link></li>
-                <li><Link to="/register">register</Link></li>
-            </ul>
-        </nav>
         <div style={styles.container} >
           <div style={styles.form}>
             <Form
