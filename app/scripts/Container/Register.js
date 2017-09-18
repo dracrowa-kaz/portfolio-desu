@@ -7,6 +7,7 @@ import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Header from './Header'
 
 const Form = t.form.Form;
 
@@ -67,9 +68,7 @@ class Register extends Component {
   render() {
     return (
       <div >
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
-          <AppBar title="Register" />
-        </MuiThemeProvider>
+        <Header />
         <div style={styles.container} >
           <div style={styles.form}>
             <Form

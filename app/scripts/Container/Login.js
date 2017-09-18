@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from "react"
-import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import AppBar from 'material-ui/AppBar'
 import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Header from './Header'
 
 const Form = t.form.Form;
 const Email = t.refinement(t.String, function (s) {
@@ -62,9 +59,7 @@ class Login extends Component {
     console.log(this.props)
     return (
       <div >
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
-          <AppBar title="Login" />
-        </MuiThemeProvider>
+        <Header />
         <div style={styles.container} >
           <div style={styles.form}>
             <Form

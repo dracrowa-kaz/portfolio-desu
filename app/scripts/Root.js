@@ -14,12 +14,6 @@ import App from './Container/App'
 const history = createHistory()
 const store = createFinalStore()
 
-const notFound = () => (
-  <div>not found
-  </div>
-)
-
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
