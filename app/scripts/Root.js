@@ -9,6 +9,7 @@ import Login from './Container/Login'
 import Register from './Container/Register'
 import Header from './Container/Header'
 import { Link } from 'react-router-dom'
+import App from './Container/App'
 
 const history = createHistory()
 const store = createFinalStore()
@@ -21,15 +22,7 @@ const notFound = () => (
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <Router>
-        <div>
-          <Route path="/" component={Header}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/register" component={Register}/>
-        </div>
-      </Router>
-    </div>
+    <App />
   </Provider>,
   document.getElementById('root')
 )
