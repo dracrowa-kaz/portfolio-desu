@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom'
 import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -17,45 +18,47 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import Drawer from 'material-ui/Drawer';
 
-const Logged = (props) => (
-  <IconMenu
-    iconButtonElement={
-      <IconButton><MoreVertIcon /></IconButton>
+class Header extends Component {
+  constructor(props){
+    super(props)
+    this.state = {open: false, screenName: ""}
+    this.openDrawer = this.openDrawer.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  handleClose(screenName) {
+    this.setState({ open: false, screenName })
+  }
+
+  openDrawer(){
+    this.setState({open: !this.state.open})
+  }
+
+  render() {
+    if(this.state.screenName !== ""){
+      return <Redirect to={this.state.screenName} />
     }
-    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-  >
-    <MenuItem primaryText="Refresh" />
-    <MenuItem primaryText="Help" />
-    <MenuItem primaryText="Sign out" />
-  </IconMenu>
-)
-
-const homeButton = () => (
-  <IconButton tooltip="Font Icon">
-    <FontIcon className="muidocs-icon-action-home" />
-  </IconButton>
-)
-
-const Header = () => (
-  <nav>
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
-      <AppBar title="Home"
-        iconElementRight={<Logged />}
-        />
-    </MuiThemeProvider>
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
-      <Drawer open={true} >
-        <MenuItem>Menu Item</MenuItem>
-        <MenuItem>Menu Item 2</MenuItem>
-      </Drawer>
-    </MuiThemeProvider>
-    <ul>
-        <li><Link to="/home">HOME</Link></li>
-        <li><Link to="/login">login</Link></li>
-        <li><Link to="/register">register</Link></li>
-    </ul>
-  </nav>
-)
+    return (
+      <nav>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
+          <AppBar title={'Portfolio-Desu :)'}
+            onLeftIconButtonTouchTap={this.openDrawer}
+             />
+        </MuiThemeProvider>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
+          <Drawer
+            docked={false}
+            open={this.state.open}
+            onRequestChange={(open) => this.setState({open})}
+            >
+            <MenuItem onClick={() => this.handleClose('home')}>Home</MenuItem>
+            <MenuItem onClick={() => this.handleClose('login')}>Login</MenuItem>
+            <MenuItem onClick={() => this.handleClose('register')}>Register</MenuItem>
+          </Drawer>
+        </MuiThemeProvider>
+      </nav>
+    )
+  }
+}
 
 export default Header
