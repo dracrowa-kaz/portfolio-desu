@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from "react"
 import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import Header from './Header'
+import { Redirect, Link } from 'react-router-dom'
+import { loginByEmail } from '../modules/auth'
 
 const Form = t.form.Form;
 const Email = t.refinement(t.String, function (s) {
@@ -33,30 +34,23 @@ const options = {
 class Login extends Component {
   constructor(props){
     super(props)
+    this.save = this.save.bind(this)
   }
+
   save() {
     var value = this.refs.form.getValue()
     if (value) {
-      const data = {
-        "name": value.mailaddress,
-        "email": value.mailaddress,
-        "password": value.password
-      }
-      axios({
-        url: '/api/auth',
-        method: 'POST',
-        data: data
-      }).then(response => {
-        const uid = response.headers['uid']
-        const client = response.headers['client']
-        const accessToken = response.headers['access-token']
-        const expiry = response.headers['expiry']
-      }).catch(error => {
-      })
+      const email = value.mailaddress
+      const password = value.password
+      this.props.dispatch(loginByEmail(email, password))
     }
   }
+
   render() {
-    console.log(this.props)
+    const { isLogged } = this.props.auth
+    if (isLogged) {
+      return <Redirect to="/home" />
+    }
     return (
       <div >
         <Header />
@@ -69,7 +63,7 @@ class Login extends Component {
             />
             <button
             style={styles.button}
-            onClick={this.save.bind(this)}>Login</button>
+            onClick={this.save}>Login</button>
           <Link to="/register" className="">I want to register</Link>
           </div>
         </div>
@@ -79,9 +73,10 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-  const {todo} = state
+  const {todo, auth} = state
   return {
     todo,
+    auth
   }
 }
 
