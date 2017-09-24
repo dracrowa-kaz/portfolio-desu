@@ -9,20 +9,22 @@ const Password = t.refinement(t.String, function (s) {
   return s.length >= 2
 })
 
-const LoginForm = t.struct({
+export const Form = t.form.Form
+
+export const LoginFormType = t.struct({
   mailaddress: Email,
   password: Password,
   rememberMe: t.Boolean
 })
 
-const RegisterForm = t.struct({
+export const RegisterFormType = t.struct({
   name: t.String,
   mailaddress: Email,
   password: Password,
   rememberMe: t.Boolean
 })
 
-const options = {
+export const options = {
   error: 'Passwords must match',
   fields: {
     email: {
@@ -34,14 +36,3 @@ const options = {
     }
   }
 }
-
-const LoginForm = ({isLogin = false}) => ({
-  const formType = isLogin ? LoginForm : RegisterForm
-  <Form
-    ref="form"
-    type={LoginForm}
-    options={options}
-  />
-})
-
-export default LoginForm

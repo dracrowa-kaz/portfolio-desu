@@ -1,41 +1,10 @@
 import React, { Component } from 'react'
-import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import AppBar from 'material-ui/AppBar'
-import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import Header from './Header'
 import { register } from '../modules/auth'
-
-const Email = t.refinement(t.String, function (s) {
-  return /@/.test(s)
-})
-const Password = t.refinement(t.String, function (s) {
-  return s.length >= 2
-})
-
-const LoginForm = t.struct({
-  name: t.String,
-  mailaddress: Email,
-  password: Password,
-  rememberMe: t.Boolean
-})
-
-const options = {
-  error: 'Passwords must match',
-  fields: {
-    email: {
-      error: 'Invalid email'
-    },
-    password: {
-      type: 'password',
-      error: 'Invalid password, enter at least 2 chars'
-    }
-  }
-};
+import { Form, RegisterFormType, options } from '../common/LoginForm'
 
 class Register extends Component {
   constructor(props){
@@ -54,7 +23,6 @@ class Register extends Component {
 
   render() {
     const { isLogged } = this.props.auth
-    const Form = t.form.Form
     if (isLogged) {
       return <Redirect to="/home" />
     }
@@ -65,7 +33,7 @@ class Register extends Component {
           <div style={styles.form}>
             <Form
               ref="form"
-              type={LoginForm}
+              type={RegisterFormType}
               options={options}
             />
             <button
@@ -80,9 +48,8 @@ class Register extends Component {
 }
 
 function mapStateToProps(state) {
-  const {todo, auth} = state
+  const {auth} = state
   return {
-    todo,
     auth
   }
 }

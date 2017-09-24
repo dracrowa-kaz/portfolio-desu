@@ -1,35 +1,10 @@
 import React, { Component, PropTypes } from "react"
-import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import Header from './Header'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { loginByEmail } from '../modules/auth'
-
-const Form = t.form.Form;
-const Email = t.refinement(t.String, function (s) {
-  return /@/.test(s);
-})
-const Password = t.refinement(t.String, function (s) {
-  return s.length >= 2;
-})
-const LoginForm = t.struct({
-  mailaddress: Email,
-  password: Password,
-  rememberMe: t.Boolean
-})
-const options = {
-  error: 'Passwords must match',
-  fields: {
-    email: {
-      error: 'Invalid email'
-    },
-    password: {
-      type: 'password',
-      error: 'Invalid password, enter at least 2 chars'
-    }
-  }
-};
+import { Form, LoginFormType, options } from '../common/LoginForm'
 
 class Login extends Component {
   constructor(props){
@@ -58,13 +33,13 @@ class Login extends Component {
           <div style={styles.form}>
             <Form
               ref="form"
-              type={LoginForm}
+              type={LoginFormType}
               options={options}
             />
             <button
             style={styles.button}
             onClick={this.save}>Login</button>
-          <Link to="/register" className="">I want to register</Link>
+            <Link to="/register" className="">I want to register</Link>
           </div>
         </div>
       </div>
@@ -73,9 +48,8 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-  const {todo, auth} = state
+  const { auth } = state
   return {
-    todo,
     auth
   }
 }
