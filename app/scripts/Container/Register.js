@@ -6,20 +6,17 @@ import AppBar from 'material-ui/AppBar'
 import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import Header from './Header'
+import { register } from '../modules/auth'
 
-const Form = t.form.Form;
-
-var Email = t.refinement(t.String, function (s) {
-  return /@/.test(s);
+const Email = t.refinement(t.String, function (s) {
+  return /@/.test(s)
+})
+const Password = t.refinement(t.String, function (s) {
+  return s.length >= 2
 })
 
-var Password = t.refinement(t.String, function (s) {
-  return s.length >= 2;
-})
-// define your domain model with tcomb
-// https://github.com/gcanti/tcomb
 const LoginForm = t.struct({
   name: t.String,
   mailaddress: Email,
@@ -44,28 +41,23 @@ class Register extends Component {
   constructor(props){
     super(props)
   }
+
   save() {
-    var value = this.refs.form.getValue()
+    const value = this.refs.form.getValue()
     if (value) {
-      const data = {
-        "name": value.mailaddress,
-        "email": value.mailaddress,
-        "password": value.password
-      }
-      axios({
-        url: '/api/auth',
-        method: 'POST',
-        data: data
-      }).then(response => {
-        const uid = response.headers['uid']
-        const client = response.headers['client']
-        const accessToken = response.headers['access-token']
-        const expiry = response.headers['expiry']
-      }).catch(error => {
-      })
+      const name = value.name
+      const email = value.mailaddress
+      const password = value.password
+      this.props.dispatch(register(name, email, password))
     }
   }
+
   render() {
+    const { isLogged } = this.props.auth
+    const Form = t.form.Form
+    if (isLogged) {
+      return <Redirect to="/home" />
+    }
     return (
       <div >
         <Header />
@@ -88,9 +80,10 @@ class Register extends Component {
 }
 
 function mapStateToProps(state) {
-  const {todo} = state
+  const {todo, auth} = state
   return {
     todo,
+    auth
   }
 }
 

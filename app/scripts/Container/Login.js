@@ -3,7 +3,7 @@ import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import Header from './Header'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { loginByEmail } from '../modules/auth'
 
 const Form = t.form.Form;
@@ -38,7 +38,7 @@ class Login extends Component {
   }
 
   save() {
-    var value = this.refs.form.getValue()
+    const value = this.refs.form.getValue()
     if (value) {
       const email = value.mailaddress
       const password = value.password

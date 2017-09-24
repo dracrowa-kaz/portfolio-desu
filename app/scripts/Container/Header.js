@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import {
-  Redirect
-} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
@@ -35,15 +33,11 @@ class Header extends Component {
   }
 
   render() {
-    if(this.state.screenName !== '') {
-      return <Redirect to={this.state.screenName} />
-    }
+    if(this.state.screenName !== '') { return <Redirect to={this.state.screenName} /> }
 
     const { isLogged } = this.props.auth
-    let isLoggedLabel = ''
-    if (isLogged) {
-      isLoggedLabel = 'Logged'
-    }
+    const isLoggedLabel = isLogged ? 'Logged' : ''
+
     return (
       <nav>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >

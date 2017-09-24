@@ -5,11 +5,36 @@ const RECEIVED = 'auth/RECEIVED'
 const FAILED = 'auth/FAILED'
 const LOGOUT = 'auth/LOGOUT'
 
+export function register(name, email, password) {
+  return (dispatch, getState) => {
+    dispatch(startLogin())
+    const data = {
+      "name": name,
+      "email": email,
+      "password": password
+    }
+    return axios({
+      url: '/auth',
+      method: 'POST',
+      data: data
+    }).then(response => {
+      const uid = response.headers['uid']
+      const client = response.headers['client']
+      const accessToken = response.headers['access-token']
+      const expiry = response.headers['expiry']
+      dispatch(successLogin(uid, client, accessToken, expiry))
+    }).catch(error => {
+      alert(error)
+      dispatch(failLogin())
+    })
+  }
+}
+
 export function loginByEmail(email, password) {
   return (dispatch, getState) => {
     dispatch(startLogin())
     return axios({
-      url: '/api/auth/sign_in',
+      url: '/auth/sign_in',
       method: 'POST',
       data: {email, password}
     }).then(response => {
@@ -19,6 +44,7 @@ export function loginByEmail(email, password) {
       const expiry = response.headers['expiry']
       dispatch(successLogin(uid, client, accessToken, expiry))
     }).catch(error => {
+      alert(error)
       dispatch(failLogin())
     })
   }
