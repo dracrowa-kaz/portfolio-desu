@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from "react"
+import { connect } from 'react-redux'
 import Header from './Header'
 
 const Home = () => (
   <div>
     <Header />
-    HOME
+    <div>HOME</div>
   </div>
 )
 
-export default Home
+export default connect()(Home)
