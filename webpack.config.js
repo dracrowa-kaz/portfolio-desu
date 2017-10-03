@@ -40,10 +40,5 @@ module.exports = {
     },
 
     // Source Mapの設定
-    devtool : "cheap-eval-source-map",
-
-    watchOptions : {
-      aggregateTimeout: 300,
-      poll: 1
-    }
+    devtool : "cheap-eval-source-map"
 };
