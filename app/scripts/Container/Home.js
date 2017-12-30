@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from "react"
+import React from 'react'
 import { connect } from 'react-redux'
-import Header from './Header'
+import Header from '../Component/Header'
 
 const Home = () => (
   <div>

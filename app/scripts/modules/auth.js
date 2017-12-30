@@ -5,31 +5,65 @@ const RECEIVED = 'auth/RECEIVED'
 const FAILED = 'auth/FAILED'
 const LOGOUT = 'auth/LOGOUT'
 
+export function registerUser(name, email, password) {
+  return (dispatch, getState) => {
+    dispatch(startRequest())
+    const data = {
+      name,
+      email,
+      password
+    }
+    return axios({
+      url: '/api/auth',
+      method: 'POST',
+      data
+    }).then((response) => {
+      const {
+        uid,
+        client,
+        accessToken,
+        expiry
+      } = response.headers
+      dispatch(successLogin(uid, client, accessToken, expiry))
+    }).catch((error) => {
+      dispatch(failLogin(error))
+    })
+  }
+}
+
 export function loginByEmail(email, password) {
   return (dispatch, getState) => {
     dispatch(startLogin())
     return axios({
       url: '/api/auth/sign_in',
       method: 'POST',
-      data: {email, password}
-    }).then(response => {
-      const uid = response.headers['uid']
-      const client = response.headers['client']
-      const accessToken = response.headers['access-token']
-      const expiry = response.headers['expiry']
+      data: { email, password }
+    }).then((response) => {
+      const {
+        uid,
+        client,
+        accessToken,
+        expiry
+      } = response.headers
       dispatch(successLogin(uid, client, accessToken, expiry))
-    }).catch(error => {
-      dispatch(failLogin())
+    }).catch((error) => {
+      dispatch(failLogin(error))
     })
   }
 }
 
-function startLogin() {
+function startRequest() {
   return { type: REQUEST }
 }
 
 function successLogin(uid, client, accessToken, expiry) {
-  return { type: RECEIVED, uid, client, accessToken, expiry }
+  return {
+    type: RECEIVED,
+    uid,
+    client,
+    accessToken,
+    expiry
+  }
 }
 
 function failLogin() {
@@ -46,17 +80,17 @@ export default function auth(state = initialState, action) {
       return Object.assign({}, state, { isLoading: true })
     case RECEIVED:
       return Object.assign({}, state, {
-          isLoading: false,
-          isLogged: true,
-          uid: action.uid,
-          client: action.client,
-          accessToken: action.accessToken,
-          expiry: action.expiry
-        })
+        isLoading: false,
+        isLogged: true,
+        uid: action.uid,
+        client: action.client,
+        accessToken: action.accessToken,
+        expiry: action.expiry
+      })
     case FAILED:
       return Object.assign({}, state, { isLoading: false })
     case LOGOUT:
-      return Object.assign({}, initialState )
+      return Object.assign({}, initialState)
     default: return state
   }
 }

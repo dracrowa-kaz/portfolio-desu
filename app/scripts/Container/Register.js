@@ -6,8 +6,9 @@ import AppBar from 'material-ui/AppBar'
 import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Header from './Header'
+import { Link, Redirect } from 'react-router-dom'
+import { registerUser } from '../modules/auth'
+import Header from '../Component/Header'
 
 const Form = t.form.Form;
 
@@ -18,13 +19,11 @@ var Email = t.refinement(t.String, function (s) {
 var Password = t.refinement(t.String, function (s) {
   return s.length >= 2;
 })
-// define your domain model with tcomb
-// https://github.com/gcanti/tcomb
+
 const LoginForm = t.struct({
   name: t.String,
   mailaddress: Email,
-  password: Password,
-  rememberMe: t.Boolean
+  password: Password
 })
 
 const options = {
@@ -47,22 +46,7 @@ class Register extends Component {
   save() {
     var value = this.refs.form.getValue()
     if (value) {
-      const data = {
-        "name": value.mailaddress,
-        "email": value.mailaddress,
-        "password": value.password
-      }
-      axios({
-        url: '/api/auth',
-        method: 'POST',
-        data: data
-      }).then(response => {
-        const uid = response.headers['uid']
-        const client = response.headers['client']
-        const accessToken = response.headers['access-token']
-        const expiry = response.headers['expiry']
-      }).catch(error => {
-      })
+      this.props.dispatch(registerUser(value.name, value.email, value.password))
     }
   }
   render() {
@@ -88,9 +72,10 @@ class Register extends Component {
 }
 
 function mapStateToProps(state) {
-  const {todo} = state
+  const { todo, auth } = state
   return {
     todo,
+    auth
   }
 }
 

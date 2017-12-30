@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react"
 import t from 'tcomb-form'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import Header from './Header'
+import Header from '../Component/Header'
 import { Redirect, Link } from 'react-router-dom'
 import { loginByEmail } from '../modules/auth'
 
@@ -73,9 +73,8 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-  const {todo, auth} = state
+  const { auth } = state
   return {
-    todo,
     auth
   }
 }
