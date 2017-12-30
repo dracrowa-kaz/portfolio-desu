@@ -55,7 +55,7 @@ class Header extends Component {
           <Drawer
             docked={false}
             open={this.state.open}
-            onRequestChange={(open) => this.setState({open})}
+            onRequestChange={this.openDrawer}
           >
             <MenuItem onClick={() => this.handleClose('/home')}>Home</MenuItem>
             <MenuItem onClick={() => this.handleClose('/login')}>Login</MenuItem>

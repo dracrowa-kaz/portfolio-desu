@@ -6,7 +6,7 @@ const FAILED = 'auth/FAILED'
 const LOGOUT = 'auth/LOGOUT'
 
 export function registerUser(name, email, password) {
-  return (dispatch, getState) => {
+  return (dispatch, _) => {
     dispatch(startRequest())
     const data = {
       name,
@@ -32,7 +32,7 @@ export function registerUser(name, email, password) {
 }
 
 export function loginByEmail(email, password) {
-  return (dispatch, getState) => {
+  return (dispatch, _) => {
     dispatch(startLogin())
     return axios({
       url: '/api/auth/sign_in',
@@ -70,9 +70,9 @@ function failLogin() {
   return { type: FAILED }
 }
 
-function logout() {
+/* function logout() {
   return { type: LOGOUT }
-}
+} */
 
 export default function auth(state = initialState, action) {
   switch (action.type) {

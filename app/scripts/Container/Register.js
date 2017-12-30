@@ -1,23 +1,18 @@
 import React, { Component } from 'react'
-import darkBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import AppBar from 'material-ui/AppBar'
 import t from 'tcomb-form'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { registerUser } from '../modules/auth'
 import Header from '../component/Header'
 
-const Form = t.form.Form;
+const { Form } = t.form
 
-var Email = t.refinement(t.String, function (s) {
-  return /@/.test(s);
+const Email = t.refinement(t.String, function (s) {
+  return /@/.test(s)
 })
 
-var Password = t.refinement(t.String, function (s) {
-  return s.length >= 2;
+const Password = t.refinement(t.String, function (s) {
+  return s.length >= 2
 })
 
 const LoginForm = t.struct({
@@ -37,18 +32,16 @@ const options = {
       error: 'Invalid password, enter at least 2 chars'
     }
   }
-};
+}
 
 class Register extends Component {
-  constructor(props){
-    super(props)
-  }
   save() {
-    var value = this.refs.form.getValue()
+    const value = this.refs.form.getValue()
     if (value) {
       this.props.dispatch(registerUser(value.name, value.email, value.password))
     }
   }
+
   render() {
     return (
       <div >
@@ -63,7 +56,7 @@ class Register extends Component {
             <button
             style={styles.button}
             onClick={this.save.bind(this)}>Register</button>
-          <Link to="/login" className="">I have account already</Link>
+            <Link to="/login" className="">I have account already</Link>
           </div>
         </div>
       </div>
@@ -83,7 +76,7 @@ export default connect(mapStateToProps)(Register)
 
 const styles = {
   container: {
-    marginTop:30,
+    marginTop: 30,
     width: '360px',
     padding: '8% 0 0',
     margin: 'auto'

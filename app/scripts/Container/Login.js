@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import t from 'tcomb-form'
 import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import { loginByEmail } from '../modules/auth'
 import Header from '../component/Header'
 
-const Form = t.form.Form
+const { Form } = t.form
 const Email = t.refinement(t.String, function (s) {
   return /@/.test(s)
 })

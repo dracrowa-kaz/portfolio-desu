@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import createFinalStore from './modules/store'
-import App from './Container/App'
+import App from './container/App'
 
 const store = createFinalStore()
 
