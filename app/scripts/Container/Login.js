@@ -1,17 +1,16 @@
-import React, { Component, PropTypes } from "react"
+import React from 'react'
 import t from 'tcomb-form'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import Header from '../Component/Header'
 import { Redirect, Link } from 'react-router-dom'
 import { loginByEmail } from '../modules/auth'
+import Header from '../component/Header'
 
-const Form = t.form.Form;
+const Form = t.form.Form
 const Email = t.refinement(t.String, function (s) {
-  return /@/.test(s);
+  return /@/.test(s)
 })
 const Password = t.refinement(t.String, function (s) {
-  return s.length >= 2;
+  return s.length >= 2
 })
 const LoginForm = t.struct({
   mailaddress: Email,
@@ -29,19 +28,18 @@ const options = {
       error: 'Invalid password, enter at least 2 chars'
     }
   }
-};
+}
 
 class Login extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.save = this.save.bind(this)
   }
 
   save() {
-    var value = this.refs.form.getValue()
+    const value = this.refs.form.getValue()
     if (value) {
-      const email = value.mailaddress
-      const password = value.password
+      const { email, password } = value
       this.props.dispatch(loginByEmail(email, password))
     }
   }
@@ -57,14 +55,17 @@ class Login extends Component {
         <div style={styles.container} >
           <div style={styles.form}>
             <Form
-              ref="form"
+              ref='form'
               type={LoginForm}
               options={options}
             />
             <button
-            style={styles.button}
-            onClick={this.save}>Login</button>
-          <Link to="/register" className="">I want to register</Link>
+              style={styles.button}
+              onClick={this.save}
+            >
+            Login
+            </button>
+            <Link to="/register"> I want to register</Link>
           </div>
         </div>
       </div>
@@ -81,9 +82,9 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps)(Login)
 
-var styles = {
+const styles = {
   container: {
-    marginTop:30,
+    marginTop: 30,
     width: '360px',
     padding: '8% 0 0',
     margin: 'auto'

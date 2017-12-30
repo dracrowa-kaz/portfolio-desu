@@ -8,7 +8,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { registerUser } from '../modules/auth'
-import Header from '../Component/Header'
+import Header from '../component/Header'
 
 const Form = t.form.Form;
 
