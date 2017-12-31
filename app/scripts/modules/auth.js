@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { APIError } from './error'
 
 const REQUEST = 'auth/REQUEST'
 const RECEIVED = 'auth/RECEIVED'
@@ -8,15 +9,10 @@ const LOGOUT = 'auth/LOGOUT'
 export function registerUser(name, email, password) {
   return (dispatch, _) => {
     dispatch(startRequest())
-    const data = {
-      name,
-      email,
-      password
-    }
     return axios({
       url: '/api/auth',
       method: 'POST',
-      data
+      data: { name, email, password }
     }).then((response) => {
       const {
         uid,
@@ -26,7 +22,8 @@ export function registerUser(name, email, password) {
       } = response.headers
       dispatch(successLogin(uid, client, accessToken, expiry))
     }).catch((error) => {
-      dispatch(failLogin(error))
+      dispatch(failLogin())
+      APIError(error, dispatch)
     })
   }
 }
@@ -48,6 +45,7 @@ export function loginByEmail(email, password) {
       dispatch(successLogin(uid, client, accessToken, expiry))
     }).catch((error) => {
       dispatch(failLogin(error))
+      APIError(error, dispatch)
     })
   }
 }
@@ -70,9 +68,9 @@ function failLogin() {
   return { type: FAILED }
 }
 
-/* function logout() {
+export function logout() {
   return { type: LOGOUT }
-} */
+}
 
 export default function auth(state = initialState, action) {
   switch (action.type) {

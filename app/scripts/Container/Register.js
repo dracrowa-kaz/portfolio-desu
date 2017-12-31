@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { registerUser } from '../modules/auth'
 import Header from '../component/Header'
 import RegisterForm from '../component/RegisterForm'
@@ -21,6 +21,10 @@ class Register extends Component {
   }
 
   render() {
+    const { isLogged } = this.props.auth
+    if (isLogged) {
+      return <Redirect to="/home" />
+    }
     return (
       <div >
         <Header />
@@ -35,7 +39,7 @@ class Register extends Component {
             >
               Register
             </button>
-            <Link to="/login" className="">I have account already</Link>
+            <Link to="/login">have account already</Link>
           </div>
         </div>
       </div>
