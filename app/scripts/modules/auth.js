@@ -33,7 +33,7 @@ export function registerUser(name, email, password) {
 
 export function loginByEmail(email, password) {
   return (dispatch, _) => {
-    dispatch(startLogin())
+    dispatch(startRequest())
     return axios({
       url: '/api/auth/sign_in',
       method: 'POST',

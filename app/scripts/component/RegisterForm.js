@@ -1,33 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 import t from 'tcomb-form'
-import { Email, Password } from './FormSetting'
+import { Name, Email, Password, Options } from './FormSetting'
 
 const register = t.struct({
-  name: t.String,
-  mailaddress: Email,
+  name: Name,
+  email: Email,
   password: Password
 })
 
-const options = {
-  error: 'Passwords must match',
-  fields: {
-    email: {
-      error: 'Invalid email'
-    },
-    password: {
-      type: 'password',
-      error: 'Invalid password, enter at least 2 chars'
-    }
-  }
-}
 
 const { Form } = t.form
-const RegisterForm = () => (
-  <Form
-    ref="form"
-    type={register}
-    options={options}
-  />
-)
 
-export default RegisterForm
+export default class RegisterForm extends Component {
+  constructor(props) {
+    super(props)
+    this.getValue = this.getValue.bind(this)
+  }
+
+  getValue() {
+    const value = this.form.getValue()
+    return value || null
+  }
+
+  render() {
+    return (
+      <Form
+        ref={(c) => { this.form = c }}
+        type={register}
+        options={Options}
+      />
+    )
+  }
+}

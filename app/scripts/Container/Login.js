@@ -13,7 +13,7 @@ class Login extends Component {
   }
 
   save() {
-    const value = this.refs.form.getValue()
+    const value = this.form.getValue()
     if (value) {
       const { email, password } = value
       this.props.dispatch(loginByEmail(email, password))
@@ -30,7 +30,9 @@ class Login extends Component {
         <Header />
         <div style={styles.container} >
           <div style={styles.form}>
-            <LoginForm />
+            <LoginForm
+              ref={(c) => { this.form = c }}
+            />
             <button
               style={styles.button}
               onClick={this.save}

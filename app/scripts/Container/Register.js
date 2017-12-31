@@ -13,9 +13,10 @@ class Register extends Component {
   }
 
   save() {
-    const value = this.refs.form.getValue()
+    const value = this.form.getValue()
     if (value) {
-      this.props.dispatch(registerUser(value.name, value.email, value.password))
+      const { name, email, password } = value
+      this.props.dispatch(registerUser(name, email, password))
     }
   }
 
@@ -25,7 +26,9 @@ class Register extends Component {
         <Header />
         <div style={styles.container} >
           <div style={styles.form}>
-            <RegisterForm />
+            <RegisterForm
+              ref={(c) => { this.form = c }}
+            />
             <button
               style={styles.button}
               onClick={this.save}
