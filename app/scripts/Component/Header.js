@@ -9,6 +9,7 @@ import AppBar from 'material-ui/AppBar'
 import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
 import Drawer from 'material-ui/Drawer'
+import { logout } from '../modules/auth'
 
 class Header extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Header extends Component {
     this.state = { open: false, screenName: '' }
     this.openDrawer = this.openDrawer.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.loggedLabelTapped = this.loggedLabelTapped.bind(this)
   }
 
   handleClose(screenName) {
@@ -32,23 +34,26 @@ class Header extends Component {
     this.setState({ open: !this.state.open })
   }
 
+  loggedLabelTapped() {
+    if (confirm('Do you want to logout?')) {
+      this.props.dispatch(logout())
+    }
+  }
+
   render() {
     if (this.state.screenName !== '') {
       return <Redirect to={this.state.screenName} />
     }
 
     const { isLogged } = this.props.auth
-    let isLoggedLabel = ''
-    if (isLogged) {
-      isLoggedLabel = 'Logged'
-    }
+    const isLoggedLabel = isLogged ? 'Logged' : null
     return (
       <nav>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar
             title="Portfolio-Desu :)"
             onLeftIconButtonTouchTap={this.openDrawer}
-            iconElementRight={<FlatButton label={isLoggedLabel} />}
+            iconElementRight={<FlatButton label={isLoggedLabel} onClick={this.loggedLabelTapped} />}
           />
         </MuiThemeProvider>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
