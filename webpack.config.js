@@ -33,10 +33,7 @@ module.exports = {
     port: 8081,
     inline: true,
     clientLogLevel: 'info',
-    contentBase: path.join(__dirname, 'scripts/'),
-    watchOptions: {
-      poll: true
-    },
+    contentBase: path.join(__dirname, 'scripts/')
   },
 
   // Source Mapの設定
