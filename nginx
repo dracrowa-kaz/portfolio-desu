@@ -1,3 +1,7 @@
+# SELinuxの設定も気をつけること
+upstream portfolio-desu {
+  server unix:///home/dracrowa/portfolio-desu/tmp/sockets/puma.sock;
+}
 server {
   listen 80 default_server;
   server_name portfolio-desu;
