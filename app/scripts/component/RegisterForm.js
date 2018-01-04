@@ -8,7 +8,6 @@ const register = t.struct({
   password: Password
 })
 
-
 const { Form } = t.form
 
 export default class RegisterForm extends Component {
