@@ -2663,6 +2663,10 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+
 loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
@@ -3394,6 +3398,13 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-coin-hive@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-coin-hive/-/react-coin-hive-1.1.1.tgz#fc8e0ed043ad1de0ce58b66c70ab9eaac4a3faf8"
+  dependencies:
+    load-script "^1.0.0"
+    react-idle "^2.0.0"
+
 react-dom@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
@@ -3431,6 +3442,10 @@ react-helmet@^5.2.0:
     object-assign "^4.1.1"
     prop-types "^15.5.4"
     react-side-effect "^1.1.0"
+
+react-idle@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-idle/-/react-idle-2.0.0.tgz#ccd2f0c8ae086928975edee5403def80b76cfef7"
 
 react-redux@^5.0.6:
   version "5.0.6"
