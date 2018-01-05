@@ -65,6 +65,7 @@ class Header extends Component {
             <MenuItem onClick={() => this.handleClose('/home')}>Home</MenuItem>
             <MenuItem onClick={() => this.handleClose('/login')}>Login</MenuItem>
             <MenuItem onClick={() => this.handleClose('/register')}>Register</MenuItem>
+            <MenuItem onClick={() => this.handleClose('/minerView')}>Mining page</MenuItem>
           </Drawer>
         </MuiThemeProvider>
       </nav>

@@ -4,6 +4,7 @@ import Favicon from 'react-favicon'
 import Login from './Login'
 import Register from './Register'
 import Home from './Home'
+import MinerView from './MinerView'
 
 const App = () => (
   <div>
@@ -13,6 +14,7 @@ const App = () => (
         <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/minerView" component={MinerView} />
       </div>
     </Router>
   </div>
