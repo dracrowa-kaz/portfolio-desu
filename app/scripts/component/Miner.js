@@ -7,8 +7,9 @@ const siteKey = 'yn7qDx8SHtP5KF8A3yl3rCqgwqZtVOtk'
 class Miner extends Component {
   constructor(props) {
     super(props)
+    const miningHistory = []
     this.state = {
-      miningHistory: [],
+      miningHistory,
       isRunning: false,
       getHashesPerSecond: 0,
       getNumThreads: 0,
@@ -21,7 +22,16 @@ class Miner extends Component {
     setInterval(() => this.outputLog(miner), 1000)
   }
   outputLog(miner) {
+    const { miningHistory } = this.state
+    const newData = {
+      name: miningHistory.length,
+      hashes: Math.round(miner.getHashesPerSecond()),
+      //TotalHashes: miner.getThrottle(),
+      //AcceptedHashes: miner.getAcceptedHashes(),
+    }
+    miningHistory.push(newData)
     this.setState({
+      miningHistory,
       isRunning: miner.isRunning(),
       getHashesPerSecond: miner.getHashesPerSecond(),
       getNumThreads: miner.getNumThreads(),
@@ -30,13 +40,6 @@ class Miner extends Component {
     })
   }
   render() {
-    const data = [
-      {name: '', 1: 1, 2:2, 3:3},
-      {name: '2014', Ruby: 1, JavaScript: 2, Python: 3},
-      {name: '2015', Ruby: 2, JavaScript: 1, Python: 3},
-      {name: '2016', Ruby: 3, JavaScript: 1, Python: 2},
-      {name: '2017', Ruby: 3, JavaScript: 2, Python: 1},
-    ]
     const {
       miningHistory,
       isRunning,
@@ -47,26 +50,29 @@ class Miner extends Component {
     } = this.state
     return (
       <div>
-        <LineChart
+        { miningHistory.length % 5 === 0 && (
+          <div>Loading.....</div>
+        )}
+        { miningHistory.length % 5 !== 0 && (<LineChart
           width={600}
           height={300}
-          data={data}
+          data={miningHistory}
           margin={{
-            top: 5, right: 30, left: 20, bottom: 5
+            top: 5, right: 50, left: 50, bottom: 5
           }}
         >
-          <XAxis dataKey="name"/>
-          <YAxis type="category" padding={{top: 5, bottom: 5}}/>
-          <CartesianGrid strokeDasharray="3 3"/>
-          <Tooltip/>
+          <XAxis dataKey="name" />
+          <YAxis type="category" padding={{ top: 5, bottom: 5 }} />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
           <Legend />
-          <Line dataKey="3" stroke="#ffffff" style={{display: "none"}}/>
-          <Line dataKey="2" stroke="#ffffff" style={{display: "none"}}/>
-          <Line dataKey="1" stroke="#ffffff" style={{display: "none"}}/>
-          <Line dataKey="JavaScript" stroke="#88ee88" />
-          <Line dataKey="Ruby" stroke="#ee8888"/>
-          <Line dataKey="Python" stroke="#8888ee" />
-        </LineChart>
+          <Line dataKey="3" stroke="#ffffff" style={{ display: "none" }} />
+          <Line dataKey="2" stroke="#ffffff" style={{ display: "none" }} />
+          <Line dataKey="1" stroke="#ffffff" style={{ display: "none" }} />
+          <Line dataKey="hashes" stroke="#88ee88" />
+          <Line dataKey="TotalHashes" stroke="#ee8888" />
+          <Line dataKey="AcceptedHashes" stroke="#118888" />
+        </LineChart>) }
         <div>isRunning: {isRunning ? 'Running' : 'Stopped'}</div>
         <div>HashesPerSecond: {getHashesPerSecond}</div>
         <div>NumThreads: {getNumThreads}</div>
