@@ -50,17 +50,15 @@ class Miner extends Component {
     } = this.state
     return (
       <div>
-        { miningHistory.length % 5 === 0 && (
-          <div>Loading.....</div>
-        )}
-        { miningHistory.length % 5 !== 0 && (<LineChart
+        <h1>Mining chart</h1>
+        { miningHistory.length % 5 === 0 && (<LineChart
           width={600}
           height={300}
-          data={miningHistory}
+          data={[]}
           margin={{
             top: 5, right: 50, left: 50, bottom: 5
           }}
-        >
+          >
           <XAxis dataKey="name" />
           <YAxis type="category" padding={{ top: 5, bottom: 5 }} />
           <CartesianGrid strokeDasharray="3 3" />
@@ -72,22 +70,43 @@ class Miner extends Component {
           <Line dataKey="hashes" stroke="#88ee88" />
           <Line dataKey="TotalHashes" stroke="#ee8888" />
           <Line dataKey="AcceptedHashes" stroke="#118888" />
-        </LineChart>) }
-        <div>isRunning: {isRunning ? 'Running' : 'Stopped'}</div>
-        <div>HashesPerSecond: {getHashesPerSecond}</div>
-        <div>NumThreads: {getNumThreads}</div>
-        <div>TotalHashes: {getTotalHashes}</div>
-        <div>AcceptedHashes: {getAcceptedHashes}</div>
-        <CoinHiveClient
-          startOnIdle={false}
-          threads={4}
-          autoThreads
-          onInit={this.onInitMiner}
-          onStart={() => console.log('started')}
-          onStop={() => console.log('stopped')}
-          siteKey={siteKey}
-          />
-      </div>
+        </LineChart>)
+        }
+      { miningHistory.length % 5 !== 0 && (<LineChart
+        width={600}
+        height={300}
+        data={miningHistory}
+        margin={{
+          top: 5, right: 50, left: 50, bottom: 5
+        }}
+        >
+        <XAxis dataKey="name" />
+        <YAxis type="category" padding={{ top: 5, bottom: 5 }} />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        <Legend />
+        <Line dataKey="3" stroke="#ffffff" style={{ display: "none" }} />
+        <Line dataKey="2" stroke="#ffffff" style={{ display: "none" }} />
+        <Line dataKey="1" stroke="#ffffff" style={{ display: "none" }} />
+        <Line dataKey="hashes" stroke="#88ee88" />
+        <Line dataKey="TotalHashes" stroke="#ee8888" />
+        <Line dataKey="AcceptedHashes" stroke="#118888" />
+      </LineChart>) }
+      <div>isRunning: {isRunning ? 'Running' : 'Stopped'}</div>
+      <div>HashesPerSecond: {getHashesPerSecond}</div>
+      <div>NumThreads: {getNumThreads}</div>
+      <div>TotalHashes: {getTotalHashes}</div>
+      <div>AcceptedHashes: {getAcceptedHashes}</div>
+      <CoinHiveClient
+        startOnIdle={false}
+        threads={4}
+        autoThreads
+        onInit={this.onInitMiner}
+        onStart={() => console.log('started')}
+        onStop={() => console.log('stopped')}
+        siteKey={siteKey}
+        />
+    </div>
     )
   }
 }
