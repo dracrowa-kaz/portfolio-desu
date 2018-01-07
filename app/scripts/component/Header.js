@@ -44,16 +44,17 @@ class Header extends Component {
     if (this.state.screenName !== '') {
       return <Redirect to={this.state.screenName} />
     }
-
     const { isLogged } = this.props.auth
-    const isLoggedLabel = isLogged ? 'Logged' : null
+    const loggedLabel = isLogged
+      ? <FlatButton label="Logged" onClick={this.loggedLabelTapped} primary />
+      : <div />
     return (
       <nav>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar
             title="Portfolio-Desu :)"
             onLeftIconButtonTouchTap={this.openDrawer}
-            iconElementRight={<FlatButton label={isLoggedLabel} onClick={this.loggedLabelTapped} />}
+            iconElementRight={loggedLabel}
           />
         </MuiThemeProvider>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
