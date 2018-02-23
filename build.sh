@@ -1,4 +1,5 @@
 #!/bin/sh
+cd /home/dracrowa/portfolio-desu/
 kill -s SIGTERM `ps aux | grep puma | grep -v 'grep' | awk '{print $2}'`
 git pull origin master
 bundle install --path vendor/bundle
