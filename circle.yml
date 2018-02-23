@@ -14,8 +14,7 @@ machine:
 
 dependencies:
   pre:
-    - cd ~/.ssh
-    - ls
+    - echo $PRIVATE_KEY ~/.ssh/portfolio
     - pyenv global 2.7.12
     - curl -o $HOME/go_appengine_${GAE_GO_SDK_VERSION}.zip https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-${GAE_GO_SDK_VERSION}.zip
     - unzip -q -d $HOME $HOME/go_appengine_${GAE_GO_SDK_VERSION}.zip
@@ -23,7 +22,7 @@ dependencies:
     - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
     - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
     - sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
-    - ssh $MAIL_ADDRESS -C /var/www/xxx/bin/deploy
+    - ssh $MAIL_ADDRESS -i ~/.ssh/portfolio
 deployment:
   staging:
     branch: develop
