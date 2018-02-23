@@ -1,0 +1,41 @@
+general:
+  branches:
+    only:
+      - master
+      - develop
+
+machine:
+  timezone:
+    Asia/Tokyo
+  environment:
+    ACCOUNT: circleci@yyyy-stg.iam.gserviceaccount.com
+    GAE_GO_SDK_VERSION: 1.9.24
+    PATH: $PATH:$HOME/go_appengine
+
+dependencies:
+  pre:
+    - curl -o $HOME/go_appengine_${GAE_GO_SDK_VERSION}.zip https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-${GAE_GO_SDK_VERSION}.zip
+    - unzip -q -d $HOME $HOME/go_appengine_${GAE_GO_SDK_VERSION}.zip
+
+deployment:
+  staging:
+    branch: develop
+    commands:
+      - echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+      - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+      - gcloud auth activate-service-account $ACCOUNT --key-file ${HOME}/gcloud-service-key.json
+      - ssh developaccount@xx.yy.ww.zz -C /var/www/xxx/bin/deploy #deploy shell
+  production:
+    pre:
+      - pyenv global 2.7.12
+    branch: master
+    commands:
+      - echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+      - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+      - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+      - sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
+      - ssh developaccount@xx.yy.ww.zz -C /var/www/xxx/bin/deploy #deploy shell
+
+      #- sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+      #- gcloud auth activate-service-account $ACCOUNT --key-file ${HOME}/gcloud-service-key.json
+      #- ssh developaccount@xx.yy.ww.zz -C /var/www/xxx/bin/deploy #deploy shell
