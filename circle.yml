@@ -22,7 +22,7 @@ dependencies:
     - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
     - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
     - sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
-    - ssh developaccount@xx.yy.ww.zz -C /var/www/xxx/bin/deploy #deploy shell
+    - sudo /opt/google-cloud-sdk/bin/gcloud compute --project "portfolio-desu" ssh --zone "us-central1-a" "instance-1"
 deployment:
   staging:
     branch: develop
