@@ -13,6 +13,7 @@ machine:
     PATH: $PATH:$HOME/go_appengine
 
 dependencies:
+  override:
   pre:
     - touch ~/.ssh/portfolio
     - echo $PRIVATE_KEY | base64 --decode --ignore-garbage > ~/.ssh/portfolio
