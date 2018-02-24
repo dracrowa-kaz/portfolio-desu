@@ -52,7 +52,7 @@ class Header extends Component {
       <nav>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar
-            title="Portfolio-Desu :)"
+            title="Portfolio-Desu :) ver 0.1"
             onLeftIconButtonTouchTap={this.openDrawer}
             iconElementRight={loggedLabel}
           />
