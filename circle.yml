@@ -19,7 +19,7 @@ dependencies:
     - echo $PRIVATE_KEY | base64 --decode --ignore-garbage > ~/.ssh/portfolio
     - chmod 400 ~/.ssh/portfolio
     - pyenv global 2.7.12
-    - ssh $DOMAIN -i ~/.ssh/portfolio sh /home/dracrowa/portfolio-desu/build.sh
+    - ssh $DOMAIN -i ~/.ssh/portfolio 'export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)";sh /home/dracrowa/portfolio-desu/build.sh'
 deployment:
   staging:
     branch: develop
