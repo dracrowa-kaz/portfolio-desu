@@ -25,3 +25,5 @@ public/scripts/*
 /node_modules
 /yarn-error.log
 vendor
+/public/packs
+/node_modules

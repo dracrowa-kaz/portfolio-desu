@@ -34,7 +34,7 @@ class Header extends Component {
     this.setState({ open: !this.state.open })
   }
 
-  loggedLabelTapped() {
+  loggedLabelTpped() {
     if (confirm('Do you want to logout?')) {
       this.props.dispatch(logout())
     }
