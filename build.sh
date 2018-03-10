@@ -7,5 +7,6 @@ bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec puma -w 4 -d
 npm install
-webpack --progress
+bin/webpack
+# webpack --progress
 sudo service nginx restart

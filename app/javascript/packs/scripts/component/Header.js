@@ -34,7 +34,7 @@ class Header extends Component {
     this.setState({ open: !this.state.open })
   }
 
-  loggedLabelTpped() {
+  loggedLabelTapped() {
     if (confirm('Do you want to logout?')) {
       this.props.dispatch(logout())
     }
@@ -52,7 +52,7 @@ class Header extends Component {
       <nav>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar
-            title="Portfolio-Desu :) ver 0.11"
+            title="Portfolio-Desu :) ver 0.12"
             onLeftIconButtonTouchTap={this.openDrawer}
             iconElementRight={loggedLabel}
           />
