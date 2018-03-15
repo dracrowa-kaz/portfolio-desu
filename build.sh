@@ -7,6 +7,6 @@ bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec puma -w 4 -d
 npm install
-bin/webpack
-# webpack --progress
+NODE_ENV=production bundle exec rake webpacker:compile
+# bin/webpack --progress
 sudo service nginx restart
