@@ -1,15 +1,15 @@
 version: 2
 jobs:
   build:
-    working_directory: /app
     environment:
       ACCOUNT: circleci@yyyy-stg.iam.gserviceaccount.com
       GAE_GO_SDK_VERSION: 1.9.24
       PATH: $PATH:$HOME/go_appengine
     docker:
-      - image: google/cloud-sdk:171.0.0-alpine
+      - image: circleci/ruby:2.4.1
     steps:
       - checkout
+      - run: echo "A first hello"
       - run: touch ~/.ssh/portfolio
       - run: echo $PRIVATE_KEY | base64 --decode --ignore-garbage > ~/.ssh/portfolio
       - run: chmod 400 ~/.ssh/portfolio
