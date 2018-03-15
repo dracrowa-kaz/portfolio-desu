@@ -9,5 +9,4 @@ jobs:
       - run: touch ~/.ssh/portfolio
       - run: echo $PRIVATE_KEY | base64 --decode --ignore-garbage > ~/.ssh/portfolio
       - run: chmod 400 ~/.ssh/portfolio
-      - run: pyenv global 2.7.12
       - run: ssh $DOMAIN -i ~/.ssh/portfolio 'export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)";sh /home/dracrowa/portfolio-desu/build.sh'
