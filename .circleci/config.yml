@@ -6,7 +6,7 @@ jobs:
       GAE_GO_SDK_VERSION: 1.9.24
       PATH: $PATH:$HOME/go_appengine
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: google/cloud-sdk:171.0.0-alpine
     steps:
       - checkout
       - run: echo "A first hello"
