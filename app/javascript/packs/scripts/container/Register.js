@@ -5,6 +5,7 @@ import { registerUser } from '../modules/auth'
 import Header from '../component/Header'
 import RegisterForm from '../component/RegisterForm'
 import FormStyle from '../styles/FormStyle'
+import Loading from '../component/Loading'
 
 class Register extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Register extends Component {
   }
 
   render() {
-    const { isLogged } = this.props.auth
+    const { isLogged, isLoading } = this.props.auth
     if (isLogged) {
       return <Redirect to="/home" />
     }
@@ -29,18 +30,21 @@ class Register extends Component {
       <div >
         <Header />
         <div style={styles.container} >
-          <div style={styles.form}>
-            <RegisterForm
-              ref={(c) => { this.form = c }}
-            />
-            <button
-              style={styles.button}
-              onClick={this.save}
-            >
-              Register
-            </button>
-            <Link to="/login">have account already</Link>
-          </div>
+          {isLoading && (<Loading />)}
+          {!isLoading && (
+            <div style={styles.form}>
+              <RegisterForm
+                ref={(c) => { this.form = c }}
+              />
+              <button
+                style={styles.button}
+                onClick={this.save}
+              >
+                Register
+              </button>
+              <Link to="/login">have account already</Link>
+            </div>
+        )}
         </div>
       </div>
     )

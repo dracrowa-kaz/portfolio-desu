@@ -5,6 +5,7 @@ import { loginByEmail } from '../modules/auth'
 import Header from '../component/Header'
 import LoginForm from '../component/LoginForm'
 import FormStyle from '../styles/FormStyle'
+import Loading from '../component/Loading'
 
 class Login extends Component {
   constructor(props) {
@@ -21,26 +22,29 @@ class Login extends Component {
   }
 
   render() {
-    const { isLogged } = this.props.auth
+    const { isLogged, isLoading } = this.props.auth
     if (isLogged) {
       return <Redirect to="/home" />
     }
     return (
-      <div >
+      <div>
         <Header />
         <div style={styles.container} >
-          <div style={styles.form}>
-            <LoginForm
-              ref={(c) => { this.form = c }}
-            />
-            <button
-              style={styles.button}
-              onClick={this.save}
-            >
-            Login
-            </button>
-            <Link to="/register"> I want to register</Link>
-          </div>
+          {isLoading && (<Loading />)}
+          {!isLoading && (
+            <div style={styles.form}>
+              <LoginForm
+                ref={(c) => { this.form = c }}
+              />
+              <button
+                style={styles.button}
+                onClick={this.save}
+              >
+              Login
+              </button>
+              <Link to="/register"> I want to register</Link>
+            </div>
+          )}
         </div>
       </div>
     )
