@@ -11,6 +11,8 @@ import FlatButton from 'material-ui/FlatButton'
 import Drawer from 'material-ui/Drawer'
 import { logout } from '../modules/auth'
 
+const version = "ver 0.13"
+
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -52,7 +54,7 @@ class Header extends Component {
       <nav>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)} >
           <AppBar
-            title="Portfolio-Desu :) ver 0.12"
+            title={`Portfolio-Desu :) ${version}`}
             onLeftIconButtonTouchTap={this.openDrawer}
             iconElementRight={loggedLabel}
           />
