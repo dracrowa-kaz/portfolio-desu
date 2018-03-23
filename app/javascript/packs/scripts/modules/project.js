@@ -20,7 +20,7 @@ export function fetchProjects() {
   }
 }
 
-export function createProject(title, content, url, coverUrl) {
+export function createProject(title, content, url, coverUrl, completion) {
   return (dispatch, _) => {
     dispatch(startRequest())
     return axios({
@@ -31,6 +31,28 @@ export function createProject(title, content, url, coverUrl) {
       }
     }).then((response) => {
       console.log(response)
+      completion()
+      dispatch(fetchProjects())
+    }).catch((error) => {
+      dispatch(failRequest())
+      APIError(error, dispatch)
+    })
+  }
+}
+
+export function removeProject(id) {
+  return (dispatch, _) => {
+    console.log(id)
+    dispatch(startRequest())
+    return axios({
+      url: '/api/projects',
+      method: 'DELETE',
+      data: {
+        id
+      }
+    }).then((response) => {
+      console.log(response)
+      dispatch(fetchProjects())
     }).catch((error) => {
       dispatch(failRequest())
       APIError(error, dispatch)
@@ -43,7 +65,6 @@ function startRequest() {
 }
 
 function receivedProjects(projects) {
-  console.log(projects)
   return {
     type: RECEIVED,
     projects

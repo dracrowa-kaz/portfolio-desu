@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       registrations: 'api/auth/registrations'
     }
     get '/projects' => 'projects#index'
-    resource :projects, only: [:create, :update, :delete]
+    delete '/projects' => 'projects#delete'
+    resource :projects, only: [:create, :update]
   end
   match '*path', to: 'application#render_404', via: :all
   root 'home#index'

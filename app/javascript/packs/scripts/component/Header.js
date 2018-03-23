@@ -11,7 +11,7 @@ import FlatButton from 'material-ui/FlatButton'
 import Drawer from 'material-ui/Drawer'
 import { logout } from '../modules/auth'
 
-const version = "ver 0.13"
+const version = 'ver 0.13'
 
 class Header extends Component {
   constructor(props) {
